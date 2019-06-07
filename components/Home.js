@@ -22,7 +22,7 @@ export default class Home extends Component {
 
     render (){
         return( <View style={styles.view}>
-            <WebView
+          <WebView
             source={{uri: this.state.url}}
             onNavigationStateChange={this._onNavigationStateChange.bind(this)}
             />
