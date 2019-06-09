@@ -23,6 +23,7 @@ export default class Home extends Component {
     render (){
         return( <View style={styles.view}>
           <WebView
+            style={styles.webView}
             source={{uri: this.state.url}}
             onNavigationStateChange={this._onNavigationStateChange.bind(this)}
             />
@@ -34,7 +35,11 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
     view: {
-      flex: 1,
-      backgroundColor: '#318ce7',
+        backgroundColor: '#318ce7',
+        flex: 1,
     },
+    webView:{
+        marginTop: 35,
+        backgroundColor: '#318ce7',
+    }
   });
