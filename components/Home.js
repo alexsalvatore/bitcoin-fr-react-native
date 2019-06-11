@@ -1,12 +1,19 @@
 import React, {Component} from 'react'
-import {View, Text, WebView, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, ActivityIndicator, Linking} from 'react-native'
+import { WebView } from 'react-native-webview'
+import style from '../Style'
 
 export default class Home extends Component {
+
+    webview = null;
+    lastValideUrl = '';
 
     constructor(props){
         super(props);
         this.state = {
-            url : 'https://bitcoin.fr/'
+            url : 'https://bitcoin.fr/',
+            lastValideUrl : '',
+            loading : false
         }
     }
 
@@ -14,32 +21,47 @@ export default class Home extends Component {
 
         console.log(webViewState)
         //is bitcoin.fr url?
-        if(webViewState.url.toLowerCase().indexOf('bitcoin.fr') < 0){
-            webViewState.url =  this.state.url;
+        if (!webViewState.url.includes('bitcoin.fr')) {
+
+            const newURL =  this.lastValideUrl;
+            const redirectTo = 'window.location = "' + newURL + '"';
+            this.webview.injectJavaScript(redirectTo);
+
+            Linking.openURL(webViewState.url);
+
+        } else {
+            this.lastValideUrl = webViewState.url;
         }
+
+        this.setState({
+            loading: webViewState.loading,
+        });
       
     }
 
     render (){
-        return( <View style={styles.view}>
-          <WebView
-            style={styles.webView}
-            source={{uri: this.state.url}}
-            onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-            />
-        </View>
-        )
-    }
+        var jsCode =  "document.querySelector('.fa-dot-circle-o').style.display = 'none'; document.querySelector('.fa-bars').style.display = 'none';";
 
+        return( <View style={style.view}>
+
+                <WebView
+                    ref={ref => (this.webview = ref)}
+                    originWhitelist={['*']}
+                    style = { (this.state.loading)? style.webViewHidden : style.webView}
+                    source={{uri: this.state.url}}
+                    injectedJavaScript={jsCode}
+                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                  />
+
+                  { this.state.loading && 
+                    <ActivityIndicator
+                    style={style.loading}
+                    size="large"
+                    hide = {false}
+                    color="#0000ff" />
+                  }
+              </View>
+              )
+       
+    }
 }
-
-const styles = StyleSheet.create({
-    view: {
-        backgroundColor: '#318ce7',
-        flex: 1,
-    },
-    webView:{
-        marginTop: 35,
-        backgroundColor: '#318ce7',
-    }
-  });
