@@ -2,66 +2,17 @@ import React, {Component} from 'react'
 import {View, Text, StyleSheet, ActivityIndicator, Linking} from 'react-native'
 import { WebView } from 'react-native-webview'
 import style from '../Style'
+import CustomWebView from './CustomWebView'
 
-export default class Home extends Component {
+export default class Home extends CustomWebView {
 
-    webview = null;
-    lastValideUrl = '';
 
     constructor(props){
         super(props);
         this.state = {
             url : 'https://bitcoin.fr/',
-            lastValideUrl : '',
-            loading : false
         }
     }
 
-    _onNavigationStateChange(webViewState){
-
-        console.log(webViewState)
-        //is bitcoin.fr url?
-        if (!webViewState.url.includes('bitcoin.fr')) {
-
-            const newURL =  this.lastValideUrl;
-            const redirectTo = 'window.location = "' + newURL + '"';
-            this.webview.injectJavaScript(redirectTo);
-
-            Linking.openURL(webViewState.url);
-
-        } else {
-            this.lastValideUrl = webViewState.url;
-        }
-
-        this.setState({
-            loading: webViewState.loading,
-        });
-      
-    }
-
-    render (){
-        var jsCode =  "document.querySelector('.fa-dot-circle-o').style.display = 'none'; document.querySelector('.fa-bars').style.display = 'none';";
-
-        return( <View style={style.view}>
-
-                <WebView
-                    ref={ref => (this.webview = ref)}
-                    originWhitelist={['*']}
-                    style = { (this.state.loading)? style.webViewHidden : style.webView}
-                    source={{uri: this.state.url}}
-                    injectedJavaScript={jsCode}
-                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                  />
-
-                  { this.state.loading && 
-                    <ActivityIndicator
-                    style={style.loading}
-                    size="large"
-                    hide = {false}
-                    color="#0000ff" />
-                  }
-              </View>
-              )
-       
-    }
+   
 }

@@ -1,8 +1,10 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './components/Home';
+import Events from './components/Events';
 import Stock from './components/Stock';
 import {  createStackNavigator, createAppContainer, createBottomTabNavigator} from 'react-navigation';
+import {Platform} from 'react-native';
 
 //Stack Navigator are just a list of screen that follows
 /*
@@ -27,6 +29,13 @@ const TabNavigator = createBottomTabNavigator(
           )*/
         }
       },
+      Events: { screen: Events,
+        navigationOptions:{
+          title: 'Événements',
+          /*tabBarIcon: ({ tintColor }) => (
+            <Icon name="ios-search" style={{color:tintColor}} />
+          )*/
+        } },
       Stock: { screen: Stock,
         navigationOptions:{
           title: 'Cours du BTC',
@@ -41,11 +50,18 @@ const TabNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let IconComponent = Ionicons;
         let iconName;
+
+        let platform = (Platform.OS === " ios")? 'ios' : 'md';
+        console.log("plateform = "+platform);
+
         if (routeName === 'Home') {
-          iconName = 'ios-home';
+          iconName = platform+'-home';
+        }else if (routeName === 'Events') {
+            iconName =  platform+'-calendar';
         } else if (routeName === 'Stock') {
-          iconName = 'ios-analytics';
-        }
+          iconName =  platform+'-analytics';
+        } 
+
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       },
     }),
