@@ -11,6 +11,7 @@ export default class CustomWebView extends Component {
     constructor(props){
         super(props);
         this.state = {
+            origin : 'https://bitcoin.fr/',
             url : 'https://bitcoin.fr/',
             lastValideUrl : '',
             loading : false
@@ -29,7 +30,11 @@ export default class CustomWebView extends Component {
 
             Linking.openURL(webViewState.url);
 
-        } else {
+        } else if(webViewState.url === "https://bitcoin.fr/" && this.state.origin != "https://bitcoin.fr/") {
+            const newURL =   this.state.origin ;
+            const redirectTo = 'window.location = "' + newURL + '"';
+            this.webview.injectJavaScript(redirectTo);
+        }else {
             this.lastValideUrl = webViewState.url;
         }
 
