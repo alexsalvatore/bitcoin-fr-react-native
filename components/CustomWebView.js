@@ -27,13 +27,14 @@ export default class CustomWebView extends Component {
             const newURL =  this.lastValideUrl;
             const redirectTo = 'window.location = "' + newURL + '"';
             this.webview.injectJavaScript(redirectTo);
-
             Linking.openURL(webViewState.url);
 
         } else if(webViewState.url === "https://bitcoin.fr/" && this.state.origin != "https://bitcoin.fr/") {
+
             const newURL =   this.state.origin ;
             const redirectTo = 'window.location = "' + newURL + '"';
             this.webview.injectJavaScript(redirectTo);
+
         }else {
             this.lastValideUrl = webViewState.url;
         }
@@ -45,10 +46,13 @@ export default class CustomWebView extends Component {
     }
 
     render (){
+        /*
         var jsCode =  "document.querySelector('.fa-dot-circle-o').style.display = 'none';"
         + "document.querySelector('.fa-bars').style.display = 'none';"
-       + "if(document.querySelector('.blog-post-social')) document.querySelector('.blog-post-social').style.display = 'none';"
+        + "if(document.querySelector('.blog-post-social')) document.querySelector('.blog-post-social').style.display = 'none';"
         + "if(document.querySelector('#disqus_thread')) document.querySelector('#disqus_thread').style.display = 'none';"
+        */
+       var jsCode = "";
         return( <View style={style.view}>
 
                 <WebView
