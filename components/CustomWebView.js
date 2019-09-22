@@ -68,6 +68,7 @@ export default class CustomWebView extends Component {
     render (){
        
         //td-header-menu-wrap 
+        //to test https://stackoverflow.com/questions/30946829/mutationobserver-not-working
 
        const jsCode =  
             "const targetNode = document.getElementsByClassName('home')[0];"+
