@@ -71,18 +71,19 @@ export default class CustomWebView extends Component {
         //to test https://stackoverflow.com/questions/30946829/mutationobserver-not-working
 
        const jsCode =  
-            "const targetNode = document.getElementsByClassName('home')[0];"+
-            "alert(targetNode);"+
-            "const config = { attributes: true, childList: true, subtree: true };"+
-            "const callback = function (mutationsList, observer) {"+
-                    "let leftBtn = document.getElementsByClassName('td-top-mobile-toggle');"+
-                    "alert(eftBtn.length);"+
-                    "if(leftBtn.length > 0){"+
-                    "leftBtn[0].display='none';"+
-                    "};"+
-            "};"+
-            "const observer = new MutationObserver(callback);";
-            "observer.observe(targetNode, config);";
+            //"const targetNode = document.getElementsByClassName('home')[0];"+
+           // "alert(targetNode);"+
+            "const config = { childList: true, subtree: true };"+
+
+            "const observer = new MutationObserver(function(mutations) {"+
+                // "alert(mutations.length);"+
+                "let leftBtn = document.getElementsByClassName('td-top-mobile-toggle');"+
+                "alert(leftBtn.length);"+
+                "if(leftBtn.length > 0){"+
+                "leftBtn[0].display='none';"+
+                "};"+
+                "});"+
+            "observer.observe(document, config);";
            
         return( <View style={style.view}>
 
