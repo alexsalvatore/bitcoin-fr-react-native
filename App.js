@@ -17,11 +17,15 @@ Home.navigationOptions = { tabBarLabel: 'Accueil' };
 Stock.navigationOptions = { tabBarLabel: 'Cours BTC' };
 */
 
+const HomeStackNavigator = createStackNavigator({
+  Home: {screen: Home}
+})
+
 //https://aboutreact.com/react-native-bottom-navigation/
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Home: { screen: Home,
+    Home: { screen: HomeStackNavigator,
         navigationOptions:{
           title: 'Accueil',
           /*tabBarIcon: ({ tintColor }) => (

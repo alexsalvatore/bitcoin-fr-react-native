@@ -7,11 +7,7 @@ export default class CustomWebView extends Component {
 
     webview = null;
     lastValideUrl = '';
-    backButton = '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"'+
-    'width="16" height="16"'+
-    'viewBox="0 0 172 172"'+
-    'style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M114.337,0l-82.087,80.50675l82.087,80.74325l14.663,-14.39425l-67.51,-66.1985l67.51,-66.263z"></path></g></g></svg>';
-
+    
     constructor(props){
         super(props);
         this.state = {
@@ -45,15 +41,23 @@ export default class CustomWebView extends Component {
             const redirectTo = 'window.location = "' + newURL + '"';
             this.webview.injectJavaScript(redirectTo);
             Linking.openURL(webViewState.url);
-
+        
+        /*
+        //Useless???
         } else if(webViewState.url === "https://bitcoin.fr/" && this.state.origin != "https://bitcoin.fr/") {
 
             const newURL =   this.state.origin ;
             const redirectToJS = 'window.location = "' + newURL + '"';
             this.webview.injectJavaScript(redirectToJS);
-        
+        */
 
-        }else {
+        //Using state navigator when we go out from the main page
+        } else if(webViewState.url != this.state.origin) {
+            
+            console.log("Go out");
+            //this.props.navigation.push("Home");
+
+        } else {
 
             this.lastValideUrl = webViewState.url;
 
@@ -71,18 +75,20 @@ export default class CustomWebView extends Component {
         //to test https://stackoverflow.com/questions/30946829/mutationobserver-not-working
 
        const jsCode =  
-            //"const targetNode = document.getElementsByClassName('home')[0];"+
+            //"const targetNode = document.getElementsByClassName('td-search-wrap-mob')[0];"+
            // "alert(targetNode);"+
+           "let topbar = document.getElementsByClassName('tdc-header-wrap');"+
+           "topbar[0].style.display= 'none';"+
             "const config = { childList: true, subtree: true };"+
-
             "const observer = new MutationObserver(function(mutations) {"+
-                // "alert(mutations.length);"+
-                "let leftBtn = document.getElementsByClassName('td-top-mobile-toggle');"+
-                "alert(leftBtn.length);"+
+                //"alert(mutations.length);"+
+                "let leftBtn = document.getElementsByClassName('tdc-header-wrap');"+
+                //"alert(leftBtn.length);"+
                 "if(leftBtn.length > 0){"+
-                "leftBtn[0].display='none';"+
+                //"alert('button found');"+
+                "leftBtn[0].style.display= 'none';"+
                 "};"+
-                "});"+
+            "});"+
             "observer.observe(document, config);";
            
         return( <View style={style.view}>
