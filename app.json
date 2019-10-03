@@ -9,8 +9,9 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
+    "description": "bitcoin.fr est un site d’informations et de nouvelles autour de Bitcoin.",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

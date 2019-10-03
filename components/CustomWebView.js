@@ -41,21 +41,11 @@ export default class CustomWebView extends Component {
             const redirectTo = 'window.location = "' + newURL + '"';
             this.webview.injectJavaScript(redirectTo);
             Linking.openURL(webViewState.url);
-        
-        /*
-        //Useless???
-        } else if(webViewState.url === "https://bitcoin.fr/" && this.state.origin != "https://bitcoin.fr/") {
-
-            const newURL =   this.state.origin ;
-            const redirectToJS = 'window.location = "' + newURL + '"';
-            this.webview.injectJavaScript(redirectToJS);
-        */
-
+      
         //Using state navigator when we go out from the main page
         } else if(webViewState.url != this.state.origin) {
             
             console.log("Go out");
-            //this.props.navigation.push("Home");
 
         } else {
 
@@ -63,9 +53,10 @@ export default class CustomWebView extends Component {
 
         }
 
+        /*
         this.setState({
             loading: webViewState.loading,
-        });
+        });*/
       
     }
 
@@ -74,22 +65,7 @@ export default class CustomWebView extends Component {
         //td-header-menu-wrap 
         //to test https://stackoverflow.com/questions/30946829/mutationobserver-not-working
 
-       const jsCode =  
-            //"const targetNode = document.getElementsByClassName('td-search-wrap-mob')[0];"+
-           // "alert(targetNode);"+
-           "let topbar = document.getElementsByClassName('tdc-header-wrap');"+
-           "topbar[0].style.display= 'none';"+
-            "const config = { childList: true, subtree: true };"+
-            "const observer = new MutationObserver(function(mutations) {"+
-                //"alert(mutations.length);"+
-                "let leftBtn = document.getElementsByClassName('tdc-header-wrap');"+
-                //"alert(leftBtn.length);"+
-                "if(leftBtn.length > 0){"+
-                //"alert('button found');"+
-                "leftBtn[0].style.display= 'none';"+
-                "};"+
-            "});"+
-            "observer.observe(document, config);";
+       const jsCode =  "";
            
         return( <View style={style.view}>
 
