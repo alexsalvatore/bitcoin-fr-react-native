@@ -25,7 +25,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "fr.bitcoin.news"
     },
     "android": {
       "package": "fr.bitcoin.news"
