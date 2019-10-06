@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, ActivityIndicator, Linking} from 'react-native'
 import { WebView } from 'react-native-webview'
 import style from '../Style'
 
+const webViewBackgroundColor = '#318ce7';
+
 export default class CustomWebView extends Component {
 
     webview = null;
@@ -14,7 +16,7 @@ export default class CustomWebView extends Component {
             origin : 'https://bitcoin.fr/',
             url : 'https://bitcoin.fr/',
             lastValideUrl : '',
-            loading : false
+            loading : true
         }
     }
 
@@ -54,9 +56,11 @@ export default class CustomWebView extends Component {
         }
 
         /*
+        //Add a loding screen but create a CSS bug on td-menu-background
         this.setState({
             loading: webViewState.loading,
-        });*/
+        });
+        */
       
     }
 

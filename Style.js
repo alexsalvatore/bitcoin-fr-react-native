@@ -7,11 +7,12 @@ export default StyleSheet.create({
       },
     webView:{
         marginTop: 35,
+        opacity: 1,
         backgroundColor: '#318ce7',
     },
     webViewHidden:{
-        height: 0,
-        opacity:0,
+        marginTop: 35,
+        opacity: 0,
         backgroundColor: '#318ce7',
     },
     loading: {
